@@ -1,1 +1,1 @@
-from usim800.Sms.sms import sms
+from usim800.Sms.sms import Sms

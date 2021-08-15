@@ -1,7 +1,5 @@
-import serial
 import time
-import re
-import json
+
 
 class communicate:
     cmd_list = []
@@ -13,31 +11,33 @@ class communicate:
         end = '\r\n'
 
         return (cmd + end)
-    def _readtill(self,till="OK"):
+
+    def _readtill(self, till="OK"):
         rcv = self._port.read(14816)
         rcvd = rcv.decode()
-        while "OK" not in rcvd: 
+        while "OK" not in rcvd:
             rcvd += rcv.decode()
             rcv = self._port.read(14816)
         return rcvd
+
     def _ATcmd(self):
         self._port.write(self._setcmd("AT").encode())
         rcv = self._port.read(14816)
 
-    def _send_cmd(self, cmd, t=1, bytes=14816, return_data=False, 
-                printio=False, get_decode_data=False,read=True):
+    def _send_cmd(self, cmd, t=1, byte_buffer=14816, return_data=False,
+                  print_io=True, get_decode_data=False, read=True):
         cmd = self._setcmd(cmd)
         self._port.write(cmd.encode())
         if read:
             time.sleep(t)
             if not get_decode_data:
-                rcv = self._port.read(bytes)
+                rcv = self._port.read(byte_buffer)
             else:
                 rcv = None
 
-            if printio:
+            if print_io:
                 print(rcv.decode())
-            
+
             if return_data:
                 return rcv
 
@@ -46,7 +46,7 @@ class communicate:
 
         return rcv
 
-    def _bearer(self,APN):
+    def _bearer(self, APN):
         self._ATcmd()
         cmd = "AT +SAPBR=0,1"
         self._send_cmd(cmd)
@@ -58,9 +58,9 @@ class communicate:
         cmd = "AT + SAPBR=1,1"
         self._send_cmd(cmd)
         cmd = "AT + SAPBR=2,1"
-        data = self._send_cmd(cmd,return_data=True)
-        try :
-           IP = data.decode().split()[4].split(",")[-1].replace('"','')
+        data = self._send_cmd(cmd, return_data=True)
+        try:
+            IP = data.decode().split()[4].split(",")[-1].replace('"', '')
         except:
             IP = None
         return IP

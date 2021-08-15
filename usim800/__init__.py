@@ -1,1 +1,1 @@
-from usim800.usim800 import sim800
+from usim800.usim800 import Sim800
