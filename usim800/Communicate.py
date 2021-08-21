@@ -8,9 +8,7 @@ class communicate:
         self._port = port
 
     def _setcmd(self, cmd, end='\r\n'):
-        end = '\r\n'
-
-        return (cmd + end)
+        return cmd + end
 
     def _readtill(self, till="OK"):
         rcv = self._port.read(14816)
@@ -25,7 +23,8 @@ class communicate:
         rcv = self._port.read(14816)
 
     def _send_cmd(self, cmd, t=1, byte_buffer=14816, return_data=False,
-                  print_io=True, get_decode_data=True, read=True):
+                  print_io=True, get_decode_data=False, read=True):
+        print("command {}".format(cmd))
         cmd = self._setcmd(cmd)
         self._port.write(cmd.encode())
         if read:
