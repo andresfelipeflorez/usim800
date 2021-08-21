@@ -25,7 +25,7 @@ class communicate:
         rcv = self._port.read(14816)
 
     def _send_cmd(self, cmd, t=1, byte_buffer=14816, return_data=False,
-                  print_io=True, get_decode_data=False, read=True):
+                  print_io=True, get_decode_data=True, read=True):
         cmd = self._setcmd(cmd)
         self._port.write(cmd.encode())
         if read:
