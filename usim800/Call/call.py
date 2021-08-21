@@ -20,7 +20,7 @@ class Call(communicate):
 
     def is_call_in_progress(self):
         cmd = "AT+CPAS"
-        data = self._send_cmd(cmd,  return_data=True )
+        data = self._send_cmd(cmd,return_data=True )
         try:
             stats = (data.decode().split())
             print(stats)  # TODO: check response statuses

@@ -1,6 +1,6 @@
 # from ATRequests import requests
 
-from usim800.Sms import sms
+from usim800.Sms import Sms
 from usim800.Communicate import communicate
 from usim800.Request import request
 from usim800.Info import info
@@ -16,7 +16,7 @@ class Sim800(communicate):
         super().__init__(self.port)
         self.requests = request(self.port)
         self.info = info(self.port)
-        self.sms = sms(self.port)
+        self.sms = Sms(self.port)
         self.call = Call(self.port)
 
 
